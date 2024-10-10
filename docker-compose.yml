@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 services:
   prom-server:
     image: prom/prometheus
@@ -6,27 +6,24 @@ services:
       - 9090:9090
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-
-  loki:
-    image: grafana/loki:latest
-    ports:
-      - 3100:3100
-    volumes:
-      - ./loki-config.yml:/etc/loki/loki-config.yaml
-
-  promtail:
-    image: grafana/promtail:latest
-    volumes:
-      - ./promtail-config.yml:/etc/promtail/promtail-config.yaml
-      - /var/log:/var/log  # Make sure you mount the log folder correctly
-    depends_on:
-      - loki
-
   grafana:
     image: grafana/grafana
     ports:
       - 3000:3000
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin  # Set a password for Grafana
-    depends_on:
-      - loki
+      - GF_SECURITY_ADMIN_PASSWORD=admin 
+  loki:
+    image: grafana/loki:3.0.0
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/loki-config.yaml
+    volumes:
+      - ./loki-config.yaml:/etc/loki/loki-config.yaml
+  promtail:
+    image: grafana/promtail:2.8.2
+    container_name: promtail
+    command: -config.file=/etc/promtail/promtail-config.yaml  # Match the correct file name
+    volumes:
+    - ./promtail-config.yaml:/etc/promtail/promtail-config.yaml  # Correct mapping
+    - /Users/s.m.ahadalichowdhury/Downloads/project/observability/1st-try/logs:/app/logs

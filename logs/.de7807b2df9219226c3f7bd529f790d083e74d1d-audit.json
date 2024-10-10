@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/s.m.ahadalichowdhury/Downloads/project/observability/1st-try/logs/.de7807b2df9219226c3f7bd529f790d083e74d1d-audit.json",
+    "files": [
+        {
+            "date": 1728544483287,
+            "name": "/Users/s.m.ahadalichowdhury/Downloads/project/observability/1st-try/logs/application-2024-10-10.log",
+            "hash": "11f7e5954b65cdf43d055b5e9c39c4ff5e1110930143e030ac60bffa008ad2de"
+        }
+    ],
+    "hashType": "sha256"
+}
